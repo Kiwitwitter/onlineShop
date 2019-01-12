@@ -14,24 +14,24 @@ import onlineShop.service.SalesOrderService;
 @Controller
 public class OrderController {
 
-	@Autowired
-	private CartService cartService;
+    @Autowired
+    private CartService cartService;
 
-	@Autowired
-	private SalesOrderService customerOrderService;
+    @Autowired
+    private SalesOrderService customerOrderService;
 
-	@RequestMapping("/order/{cartId}")
-	public String createOrder(@PathVariable("cartId") int cartId) {
-		
-		SalesOrder salesOrder = new SalesOrder();
-		Cart cart = cartService.getCartById(cartId);
-		salesOrder.setCart(cart);
+    @RequestMapping("/order/{cartId}")
+    public String createOrder(@PathVariable("cartId") int cartId) {
 
-		Customer customer = cart.getCustomer();
-		salesOrder.setCustomer(customer);
-		salesOrder.setShippingAddress(customer.getShippingAddress());
-		salesOrder.setBillingAddress(customer.getBillingAddress());
-		customerOrderService.addSalesOrder(salesOrder);
-		return "redirect:/checkout?cartId=" + cartId;
-	}
+   	 SalesOrder salesOrder = new SalesOrder();
+   	 Cart cart = cartService.getCartById(cartId);
+   	 salesOrder.setCart(cart);
+
+   	 Customer customer = cart.getCustomer();
+   	 salesOrder.setCustomer(customer);
+   	 salesOrder.setShippingAddress(customer.getShippingAddress());
+   	 salesOrder.setBillingAddress(customer.getBillingAddress());
+   	 customerOrderService.addSalesOrder(salesOrder);
+   	 return "redirect:/checkout?cartId=" + cartId;
+    }
 }
